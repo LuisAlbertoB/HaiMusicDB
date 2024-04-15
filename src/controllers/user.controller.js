@@ -7,5 +7,5 @@ exports.allAccess = (req, res) => {
   };
   
   exports.adminBoard = (req, res) => {
-    res.status(200).send(" de administradores.");
+    res.status(200).send("Contenedor de administradores.");
   };

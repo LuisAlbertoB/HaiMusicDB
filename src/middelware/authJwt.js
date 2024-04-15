@@ -11,14 +11,14 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send({ message: "No se ha proporcionado el token" });
   }
 
-  jwt.verify(token, config.secret)
-    .then(decoded => {
-      req.userId = decoded.id;
-      next();
-    })
-    .catch(err => {
-      res.status(401).send({ message: "Token no válido" });
-    });
+  try {
+    const decoded = jwt.verify(token, config.secret);
+    req.userId = decoded.id;
+    next();
+    
+  } catch (err) {
+    res.status(401).send({ message: "Token no valido" })
+  };
 };
 
 const isAdmin = async (req, res, next) => {

@@ -19,5 +19,5 @@ module.exports = function(app) {
       controller.signup
     );
   
-    app.post("/api/V3/auth/signin", controller.signin);
+    app.post("/api/V3/auth/singin", controller.signin);
   };

@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   try {
+
     const user = new User({
       user_name: req.body.user_name,
       first_name: req.body.first_name,
@@ -22,11 +23,11 @@ exports.signup = async (req, res) => {
     let roles = [];
     if (req.body.roles) {
       roles = await Role.find({ name: { $in: req.body.roles } });
-    } else {
+    } /* else {
       const defaultRole = await Role.findOne({ name: "user" });
       roles.push(defaultRole);
     }
-
+ */
     savedUser.roles = roles.map(role => role._id);
     await savedUser.save();
 

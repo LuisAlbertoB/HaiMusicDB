@@ -18,19 +18,8 @@ const Song = mongoose.model(
                 ref: "Disk",
             }
         ],
-        description: String,
-        credits: String,
-        likes: Number,
-        favs: Number,
-        downloads: Number,
-        created_at: String,
-        created_by: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
-        updated_at: String,
+
+        language: String
     })
 );
 

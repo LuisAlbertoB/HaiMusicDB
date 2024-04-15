@@ -6,8 +6,6 @@ const Artist = mongoose.model(
         name: String,
         birthDay: String,
         bio: String,
-        created_at: String,
-        updated_at: String
     })
 );
 
