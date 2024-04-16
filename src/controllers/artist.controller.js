@@ -17,3 +17,19 @@ exports.updateArtist = async (req, res) => {
         res.status(500).send({ message: 'Error al actualizar el artista' });
     }
 };
+
+exports.findArtistByName = async (req, res) => {
+    const { name } = req.params;
+
+    try {
+        const artist = await Artist.findOne({ name: name }).populate('songs');
+
+        if (!artist) {
+            return res.status(404).send({ message: 'Artista no encontrado' });
+        }
+
+        res.status(200).send(artist);
+    } catch (error) {
+        res.status(500).send({ message: 'Error al buscar el artista' });
+    }
+};

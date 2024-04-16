@@ -1,5 +1,5 @@
 const { authJwt } = require("../middelware");
-const controller = require("../controllers/disk.controller");
+const languageController = require("../controllers/lenguage.controller");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -10,16 +10,15 @@ module.exports = function(app) {
     next();
   });
 
-  app.put(
-    "/api/V3/disk/update/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.updateDisk
+  app.get(
+    "/api/V3/songs/spanish",
+    [authJwt.verifyToken],
+    languageController.getAllSongsInSpanish
   );
 
   app.get(
-    "/api/V3/disk/name/:name",
+    "/api/V3/songs/english",
     [authJwt.verifyToken],
-    controller.findDiskWithSongsByName
-);
-
+    languageController.getAllSongsInEnglish
+  );
 };

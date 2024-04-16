@@ -29,17 +29,26 @@ exports.createSong = async (req, res) => {
 
     await song.save();
 
+    // Agrega la canción al disco
+    disk.songs.push(song._id);
+    await disk.save();
+
+    // Agrega la canción al artista
+    artist.songs.push(song._id);
+    await artist.save();
+
     const lenguage = new Lenguage({
       [req.body.language]: song._id
     });
 
     await lenguage.save();
 
-    res.send({ message: "La canción se ha registrado correctamente" });
+    res.send({ message: "La canción se ha registrado correctamente y se ha vinculado con el disco y el artista" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
+
 
 
 exports.updateSong = async (req, res) => {
@@ -98,6 +107,20 @@ exports.updateSong = async (req, res) => {
     await newLenguage.save();
 
     res.send({ message: "La canción se ha actualizado correctamente", song });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.findSong = async (req, res) => {
+  try {
+    const song = await Song.findOne({ name: req.params.name }).populate('artist').populate('disk');
+
+    if (!song) {
+      return res.status(404).send({ message: "No se encontró la canción" });
+    }
+
+    res.send(song);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

@@ -21,4 +21,10 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.updateSong
   );
+
+  app.get(
+    "/api/V3/song/find/:name",
+    [authJwt.verifyToken],
+    controller.findSong
+  );
 };

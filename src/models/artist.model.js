@@ -6,6 +6,12 @@ const Artist = mongoose.model(
         name: String,
         birthDay: String,
         bio: String,
+        songs: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Song",
+            }
+        ]
     })
 );
 

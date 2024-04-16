@@ -15,4 +15,10 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.updateArtist
   );
+
+  app.get(
+    "/api/V3/artist/find/:name",
+    [authJwt.verifyToken],
+    controller.findArtistByName
+);
 };

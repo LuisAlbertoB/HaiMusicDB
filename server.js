@@ -48,6 +48,7 @@ require('./src/routers/user.routes')(app);
 require('./src/routers/song.routes')(app);
 require('./src/routers/artist.routes')(app);
 require('./src/routers/disk.routes')(app);
+require('./src/routers/lenguage.routes')(app);
 
 
 const PORT = process.env.PORT || 3030;
