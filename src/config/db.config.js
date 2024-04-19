@@ -1,5 +1,5 @@
 module.exports = {
-    HOST:"0.0.0.0",
+    HOST:"52.202.41.209",
     PORT:27017,
     DB:"haimusic_db"
 }
