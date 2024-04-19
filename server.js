@@ -9,8 +9,8 @@ const app = express();
 
 
 const accountLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hora
-    max: 6, // limita cada IP a 6 peticiones por el tiempo definido con "windowMs"
+    windowMs: 60  * 1000, // 1 minuto
+    max: 5, 
     message: "Demasiadas peticiones realizadas, intenta despues de 1 hora"
 }); 
 
@@ -22,7 +22,7 @@ let corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-
+app.use(accountLimiter);
 
 const db = require("./src/models");
 const Role = db.role;
@@ -38,7 +38,7 @@ db.mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
     process.exit();
 });
 
-app.get("/",accountLimiter,(req,res)=>{
+app.get("/", (req,res)=>{
     res.json({message:"Bienbenidos a HaiMusic API"})
 })
 
@@ -49,7 +49,8 @@ require('./src/routers/song.routes')(app);
 require('./src/routers/artist.routes')(app);
 require('./src/routers/disk.routes')(app);
 require('./src/routers/lenguage.routes')(app);
-
+require('./src/routers/favList.routes')(app);
+require('./src/routers/likedList.routes')(app);
 
 const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {

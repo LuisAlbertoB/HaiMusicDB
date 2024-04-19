@@ -125,3 +125,50 @@ exports.findSong = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.deleteSong = async (req, res) => {
+  try {
+
+    const song = await Song.findById(req.params.id);
+
+    if (!song) {
+      return res.status(404).send({ message: "No se encontró la canción" });
+    }
+
+    const artist = await Artist.findById(song.artist);
+    artist.songs.pull(song._id);
+    await artist.save();
+
+    const disk = await Disk.findById(song.disk);
+    disk.songs.pull(song._id);
+    await disk.save();
+
+    const lenguage = await Lenguage.findOne({ [song.language]: song._id });
+
+    if (lenguage) {
+      await Lenguage.deleteOne({ _id: lenguage._id });
+    }
+
+    await Song.deleteOne({ _id: song._id });
+
+    res.send({ message: "La canción se ha eliminado correctamente" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.getAllSongs = async (req, res) => {
+  try {
+    const songs = await Song.find({})
+      .populate('artist', 'name -_id')
+      .populate('disk', 'name -_id');
+
+    if (!songs) {
+      return res.status(404).send({ message: "No se encontraron canciones" });
+    }
+
+    res.send(songs);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

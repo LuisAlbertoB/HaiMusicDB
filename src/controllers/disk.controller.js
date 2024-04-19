@@ -35,3 +35,27 @@ exports.findDiskWithSongsByName = async (req, res) => {
     }
 };
 
+exports.getAllDisks = async (req, res) => {
+    try {
+      const disks = await Disk.find({});
+      res.send(disks);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+
+  exports.deleteDisk = async (req, res) => {
+    try {
+      const disk = await Disk.findByIdAndDelete(req.params.id);
+  
+      if (!disk) {
+        return res.status(404).send({ message: "No se encontró el disco" });
+      }
+  
+      res.send({ message: "El disco se ha eliminado correctamente" });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+  
+

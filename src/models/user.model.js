@@ -26,14 +26,7 @@ const User = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "FavList",
             }
-        ],
-        download_list: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Download",
-            }
-        ],
-        creadet_at: String
+        ]
     })
 );
 

@@ -20,5 +20,17 @@ module.exports = function(app) {
     "/api/V3/artist/find/:name",
     [authJwt.verifyToken],
     controller.findArtistByName
-);
+  );
+
+app.get(
+  "/api/V3/artist/all",
+  [authJwt.verifyToken],
+  controller.getAllArtists
+  );
+
+  app.delete(
+    "/api/V3/artist/delete/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.deleteArtist
+  );
 };

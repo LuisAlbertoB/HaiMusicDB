@@ -27,4 +27,17 @@ module.exports = function(app) {
     [authJwt.verifyToken],
     controller.findSong
   );
+
+  app.delete(
+    "/api/V3/song/delete/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.deleteSong
+  );
+
+  app.get(
+    "/api/V3/song/all",
+    [authJwt.verifyToken],
+    controller.getAllSongs
+  );  
+  
 };

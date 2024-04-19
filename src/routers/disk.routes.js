@@ -20,6 +20,18 @@ module.exports = function(app) {
     "/api/V3/disk/name/:name",
     [authJwt.verifyToken],
     controller.findDiskWithSongsByName
-);
+  );
+
+  app.get(
+  "/api/V3/disk/all",
+  [authJwt.verifyToken],
+  controller.getAllDisks
+  );
+
+  app.delete(
+  "/api/V3/disk/delete/:id",
+  [authJwt.verifyToken, authJwt.isAdmin],
+  controller.deleteDisk
+  );
 
 };

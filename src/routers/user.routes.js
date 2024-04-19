@@ -19,4 +19,17 @@ app.use(function(req, res, next) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
     );
+
+    app.put(
+        "/api/V3/user/update/:id",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.updateUser
+      );
+      
+      app.delete(
+        "/api/V3/user/delete/:id",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.deleteUser
+      );
+      
 };

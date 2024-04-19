@@ -33,3 +33,26 @@ exports.findArtistByName = async (req, res) => {
         res.status(500).send({ message: 'Error al buscar el artista' });
     }
 };
+
+exports.getAllArtists = async (req, res) => {
+    try {
+      const artists = await Artist.find({});
+      res.send(artists);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
+
+  exports.deleteArtist = async (req, res) => {
+    try {
+      const artist = await Artist.findByIdAndDelete(req.params.id);
+  
+      if (!artist) {
+        return res.status(404).send({ message: "No se encontró el artista" });
+      }
+  
+      res.send({ message: "El artista se ha eliminado correctamente" });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  };
