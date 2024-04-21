@@ -16,7 +16,7 @@ const accountLimiter = rateLimit({
 
 
 let corsOption = {
-    origin: "http://localhost:3030"
+    origin: ["http://localhost:3000", "http://187.244.120.3:3000", "http://34.203.125.206:3030"]
 };
 
 app.use(cors(corsOption));
